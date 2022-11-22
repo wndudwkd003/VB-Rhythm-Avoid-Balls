@@ -73,6 +73,9 @@ Public Class StartForm
             Case "RankButton"
 
             Case "LearnButton"
+                Dim formPlay As New LearnForm
+                formPlay.Show()
+                Hide()
 
             Case "ExitButton"
                 Dim result As DialogResult = MessageBox.Show("정말로 종료하시겠습니까?", "Game Exit", MessageBoxButtons.YesNo)

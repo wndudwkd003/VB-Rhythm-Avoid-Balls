@@ -110,6 +110,7 @@ Partial Class StartForm
         Me.Controls.Add(Me.RankButton)
         Me.Controls.Add(Me.StartButton)
         Me.Controls.Add(Me.Label1)
+        Me.DoubleBuffered = True
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Name = "StartForm"
         Me.Text = "StartForm"
