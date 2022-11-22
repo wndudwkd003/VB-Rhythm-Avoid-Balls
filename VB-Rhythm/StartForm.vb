@@ -82,30 +82,6 @@ Public Class StartForm
         End Select
     End Sub
 
-    Private Sub StartTimer_Tick(sender As Object, e As EventArgs) Handles StartTimer.Tick
-        If StartButton.Focused = True Then
-            StartButton.Text = "▶ Game Start ◀"
-            RankButton.Text = "Player Rank"
-            LearnButton.Text = "How To Play"
-            ExitButton.Text = "Game Exit"
-        ElseIf RankButton.Focused = True Then
-            StartButton.Text = "Game Start"
-            RankButton.Text = "▶ Player Rank ◀"
-            LearnButton.Text = "How To Play"
-            ExitButton.Text = "Game Exit"
-        ElseIf LearnButton.Focused = True Then
-            StartButton.Text = "Game Start"
-            RankButton.Text = "Player Rank"
-            LearnButton.Text = "▶ How To Play ◀"
-            ExitButton.Text = "Game Exit"
-        ElseIf ExitButton.Focused = True Then
-            StartButton.Text = "Game Start"
-            RankButton.Text = "Player Rank"
-            LearnButton.Text = "How To Play"
-            ExitButton.Text = "▶ Game Exit ◀"
-        End If
 
-
-    End Sub
 
 End Class

@@ -9,10 +9,7 @@ Public Class MainForm
         Dim flag As Boolean
     End Structure
 
-    Private mainThread As Thread
-
     Private gameManager As GameManager = GameManager.getInstance
-
 
     Private balls(100) As Ball
     Private userBall As New Ball(userFirstCoord, 0, userFirstAngle, userFirstDistance)
@@ -24,21 +21,34 @@ Public Class MainForm
 
     Private angle As Double = 0.0
 
-    Private timerRecent As ULong = 0
     Private timerNow As ULong
+    Private scoreTimerRecent As ULong = 0
+    Private powerTimerRecent As ULong = 0
+    Private recodTimerRecent As ULong = 0
+
+
+
+
+    Private powerTime As Integer = 6
+
+
 
     Private MainLoopTimer As System.Timers.Timer
     Private MainLoopInterval As Integer = 33
 
 
+
+
     Private Sub MainForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         SysMduleInit()
+        CheckForIllegalCrossThreadCalls = False
 
-        'gameManager.gameSnds.Play("start")
+        gameManager.gameSnds.Play("start")
 
         TimeLabel.Text = "Timer : 00.00.00"
         ScoreLabel.Text = "Score : 0"
         LifeLable.Text = "Life : 3"
+        PowerLabel.Text = ""
 
         With TimeLabel
             .Font = m6Font
@@ -49,6 +59,10 @@ Public Class MainForm
         End With
 
         With LifeLable
+            .Font = m6Font
+        End With
+
+        With PowerLabel
             .Font = m6Font
         End With
 
@@ -115,8 +129,10 @@ Public Class MainForm
 
 
             timerNow = DateTime.Now.Ticks
-            If timerNow >= timerRecent + 40000000 Then
-                timerRecent = timerNow
+
+
+            If timerNow >= scoreTimerRecent + 50000000 Then
+                scoreTimerRecent = timerNow
                 For i = 0 To maxScoreCnt
                     If scoreBalls(i).flag = False Then
                         scoreBalls(i).scoreBall.coord.X = Math.Cos(scoreBalls(i).scoreBall.angle) * scoreBalls(i).scoreBall.distance + bgSize.Width / 2 - enemySBallSize.Width / 2
@@ -126,6 +142,27 @@ Public Class MainForm
                     End If
                 Next
             End If
+
+
+            If timerNow >= recodTimerRecent + 1000000 Then
+                recodTimerRecent = timerNow
+                gameManager.playTime += 100
+            End If
+
+            If gameManager.userDieState = 1 And timerNow >= powerTimerRecent + 10000000 Then
+                powerTimerRecent = timerNow
+                If powerTime <= 0 Then
+                    powerTime = 0
+                    PowerLabel.Text = ""
+                    gameManager.userDieState = 0
+                    powerTime = 6
+                Else
+                    powerTime -= 1
+                    PowerLabel.Text = powerTime
+                End If
+            End If
+
+
 
             For u = 0 To 100
                 balls(u).angle += angle
@@ -142,9 +179,13 @@ Public Class MainForm
                 If Math.Pow(userFirstSize.Width / 2, 2) >=
                 (Math.Pow(userBall.coord.X + userFirstSize.Width / 2 - balls(u).coord.X - enemySBallSize.Width / 2, 2) +
                 Math.Pow(userBall.coord.Y + userFirstSize.Height / 2 - balls(u).coord.Y - enemySBallSize.Height / 2, 2)) Then
-                    userBall.angle = userFirstAngle
-                    gameManager.playLife -= 1
-                    gameManager.gameSnds.Play("die")
+                    If Not gameManager.userDieState = 1 Then
+                        userBall.angle = userFirstAngle
+                        PowerLabel.Visible = True
+                        gameManager.userDieState = 1
+                        gameManager.playLife -= 1
+                        gameManager.gameSnds.Play("die")
+                    End If
                 End If
             Next
 
@@ -230,6 +271,7 @@ Public Class MainForm
         If e.KeyCode = Keys.Escape Then
             With StartForm
                 .Show()
+                gameManager.gameSnds.Play("loby")
             End With
             Close()
         End If
@@ -240,12 +282,8 @@ Public Class MainForm
         inputKeys.Remove(e.KeyCode)
     End Sub
 
-    Private Sub RecTimer_Tick(sender As Object, e As EventArgs) Handles RecTimer.Tick
-        gameManager.playTime += RecTimer.Interval
-    End Sub
 
     Private Sub MainForm_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
-        RecTimer.Enabled = False
         gameManager.gameSnds.Stop("start")
     End Sub
 

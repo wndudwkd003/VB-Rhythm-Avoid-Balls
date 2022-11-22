@@ -22,11 +22,10 @@ Partial Class MainForm
     '코드 편집기에서는 수정하지 마세요.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container()
         Me.TimeLabel = New System.Windows.Forms.Label()
         Me.ScoreLabel = New System.Windows.Forms.Label()
-        Me.RecTimer = New System.Windows.Forms.Timer(Me.components)
         Me.LifeLable = New System.Windows.Forms.Label()
+        Me.PowerLabel = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'TimeLabel
@@ -44,6 +43,7 @@ Partial Class MainForm
         'ScoreLabel
         '
         Me.ScoreLabel.AutoSize = True
+        Me.ScoreLabel.BackColor = System.Drawing.Color.Transparent
         Me.ScoreLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
         Me.ScoreLabel.Location = New System.Drawing.Point(876, 325)
         Me.ScoreLabel.Name = "ScoreLabel"
@@ -51,11 +51,6 @@ Partial Class MainForm
         Me.ScoreLabel.TabIndex = 1
         Me.ScoreLabel.Text = "Score : 0"
         Me.ScoreLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'RecTimer
-        '
-        Me.RecTimer.Enabled = True
-        Me.RecTimer.Interval = 14
         '
         'LifeLable
         '
@@ -69,6 +64,19 @@ Partial Class MainForm
         Me.LifeLable.Text = "Life : 3"
         Me.LifeLable.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
+        'PowerLabel
+        '
+        Me.PowerLabel.AutoSize = True
+        Me.PowerLabel.BackColor = System.Drawing.Color.Transparent
+        Me.PowerLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
+        Me.PowerLabel.ForeColor = System.Drawing.Color.Black
+        Me.PowerLabel.Location = New System.Drawing.Point(620, 123)
+        Me.PowerLabel.Name = "PowerLabel"
+        Me.PowerLabel.Size = New System.Drawing.Size(30, 31)
+        Me.PowerLabel.TabIndex = 0
+        Me.PowerLabel.Text = "5"
+        Me.PowerLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
         'MainForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
@@ -78,6 +86,7 @@ Partial Class MainForm
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.ClientSize = New System.Drawing.Size(1264, 681)
         Me.Controls.Add(Me.ScoreLabel)
+        Me.Controls.Add(Me.PowerLabel)
         Me.Controls.Add(Me.LifeLable)
         Me.Controls.Add(Me.TimeLabel)
         Me.DoubleBuffered = True
@@ -93,6 +102,6 @@ Partial Class MainForm
 
     Friend WithEvents TimeLabel As Label
     Friend WithEvents ScoreLabel As Label
-    Friend WithEvents RecTimer As Timer
     Friend WithEvents LifeLable As Label
+    Friend WithEvents PowerLabel As Label
 End Class

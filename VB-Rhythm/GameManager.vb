@@ -9,9 +9,15 @@
     Public playLife As Short = 3
     Public playLifeStr As String
 
-    Public gameSnds As New GameSounds
+    Public userDieState As Short = 0
+
+    Public soundState As Short = 0
+
+    Public gameSnds As GameSounds
 
     Private Sub New()
+        gameSnds = New GameSounds
+
         gameSnds.AddSound("start", "./Music/Start.wav")
         gameSnds.AddSound("loby", "./Music/Loby.wav")
         gameSnds.AddSound("click", "./Music/ButtonClick.wav")
@@ -20,6 +26,7 @@
         gameSnds.AddSound("die", "./Music/die.wav")
         gameSnds.AddSound("mouse", "./Music/mouse.wav")
     End Sub
+
 
     Public Shared Function getInstance() As GameManager
 
@@ -42,7 +49,7 @@
         hourPlayTime = (playTime - msPlayTime) \ 1000
         hourPlayTime = (hourPlayTime \ 60) \ 60
 
-        playTimeStr = "Timer : " & Format(hourPlayTime, "00") & "." & Format(minPlayTime, "00") & "." & Format(secPlayTime, "00" & "." & Format(msPlayTime, "000"))
+        playTimeStr = "Timer : " & Format(hourPlayTime, "00") & "." & Format(minPlayTime, "00") & "." & Format(secPlayTime, "00")
 
         Return playTimeStr
 
