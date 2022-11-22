@@ -26,6 +26,7 @@ Partial Class MainForm
         Me.TimeLabel = New System.Windows.Forms.Label()
         Me.ScoreLabel = New System.Windows.Forms.Label()
         Me.RecTimer = New System.Windows.Forms.Timer(Me.components)
+        Me.LifeLable = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'TimeLabel
@@ -56,6 +57,18 @@ Partial Class MainForm
         Me.RecTimer.Enabled = True
         Me.RecTimer.Interval = 14
         '
+        'LifeLable
+        '
+        Me.LifeLable.AutoSize = True
+        Me.LifeLable.BackColor = System.Drawing.Color.Transparent
+        Me.LifeLable.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
+        Me.LifeLable.Location = New System.Drawing.Point(589, 566)
+        Me.LifeLable.Name = "LifeLable"
+        Me.LifeLable.Size = New System.Drawing.Size(103, 31)
+        Me.LifeLable.TabIndex = 0
+        Me.LifeLable.Text = "Life : 3"
+        Me.LifeLable.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
         'MainForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
@@ -65,6 +78,7 @@ Partial Class MainForm
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.ClientSize = New System.Drawing.Size(1264, 681)
         Me.Controls.Add(Me.ScoreLabel)
+        Me.Controls.Add(Me.LifeLable)
         Me.Controls.Add(Me.TimeLabel)
         Me.DoubleBuffered = True
         Me.ForeColor = System.Drawing.SystemColors.ControlText
@@ -80,4 +94,5 @@ Partial Class MainForm
     Friend WithEvents TimeLabel As Label
     Friend WithEvents ScoreLabel As Label
     Friend WithEvents RecTimer As Timer
+    Friend WithEvents LifeLable As Label
 End Class

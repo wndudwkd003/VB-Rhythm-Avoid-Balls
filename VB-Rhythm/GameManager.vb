@@ -6,6 +6,9 @@
     Public hourPlayTime, minPlayTime, secPlayTime, msPlayTime As UInteger
     Public playScore As Integer = 0
     Public playScoreStr As String
+    Public playLife As Short = 3
+    Public playLifeStr As String
+
     Public gameSnds As New GameSounds
 
     Private Sub New()
@@ -50,6 +53,14 @@
         playScoreStr = "Score : " & playScore
 
         Return playScoreStr
+
+    End Function
+
+    Public Function LifeToString()
+
+        playLifeStr = "Life : " & playLife
+
+        Return playLifeStr
 
     End Function
 End Class

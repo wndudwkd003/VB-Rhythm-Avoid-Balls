@@ -34,16 +34,21 @@ Public Class MainForm
     Private Sub MainForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         SysMduleInit()
 
-        gameManager.gameSnds.Play("start")
+        'gameManager.gameSnds.Play("start")
 
         TimeLabel.Text = "Timer : 00.00.00"
         ScoreLabel.Text = "Score : 0"
+        LifeLable.Text = "Life : 3"
 
         With TimeLabel
             .Font = m6Font
         End With
 
         With ScoreLabel
+            .Font = m6Font
+        End With
+
+        With LifeLable
             .Font = m6Font
         End With
 
@@ -83,9 +88,9 @@ Public Class MainForm
 
     Private Sub MainLoopFunction(sender As Object, e As ElapsedEventArgs)
 
-        If Not gameManager.gameSnds.IsPlaying("start") Then
-            gameManager.gameSnds.Play("start")
-        End If
+        'If Not gameManager.gameSnds.IsPlaying("start") Then
+        '    gameManager.gameSnds.Play("start")
+        'End If
 
         If mainGameStart = True Then
 
@@ -93,6 +98,7 @@ Public Class MainForm
 
             TimeLabel.Text = gameManager.TimeToString
             ScoreLabel.Text = gameManager.ScoreToString
+            LifeLable.Text = gameManager.LifeToString
 
 
             ''''''''''''''''''''''''''''
@@ -137,6 +143,7 @@ Public Class MainForm
                 (Math.Pow(userBall.coord.X + userFirstSize.Width / 2 - balls(u).coord.X - enemySBallSize.Width / 2, 2) +
                 Math.Pow(userBall.coord.Y + userFirstSize.Height / 2 - balls(u).coord.Y - enemySBallSize.Height / 2, 2)) Then
                     userBall.angle = userFirstAngle
+                    gameManager.playLife -= 1
                     gameManager.gameSnds.Play("die")
                 End If
             Next
