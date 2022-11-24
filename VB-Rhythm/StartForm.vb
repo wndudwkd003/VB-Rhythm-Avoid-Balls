@@ -24,7 +24,6 @@ Public Class StartForm
     Private Function ServerConnect() As Boolean
         Try
             client = New ClientSock()
-
             If client.ConnectServer(servAddr, port_n) Then
                 client.Initiate()
                 AddHandler client.ReceiveProc, AddressOf Receiving
@@ -49,7 +48,6 @@ Public Class StartForm
             Dim h_type As Integer = Header.Disconn
             client.SendData(h_type.ToString)
             IsConn = False
-
             client.Close()
             client.Del()
         End If
@@ -59,70 +57,45 @@ Public Class StartForm
         Dim h_type As Integer
         h_type = CInt(data.Substring(0, 1))
         data = data.Substring(1)
-
-        Select Case h_type
-            Case 0
-                Output("(System) 서버 (" & servAddr & ") 에 접속되었습니다.")
-            Case 1
-                Output("(System) 서버와의 연결이 종료되었습니다.")
-                MsgBox("dis")
-            Case 2
-                Output(data)
-        End Select
+        Dim tmpJarry As JArray = JArray.Parse(data)
+        Dim uList As New ArrayList
+        For i = 0 To tmpJarry.Count - 1
+            Dim u As New User
+            Dim tmpJson As JObject = tmpJarry(i)
+            u.nickname = tmpJson.Item("nickname").ToString
+            u.score = tmpJson.Item("score").ToString
+            u.hTime = tmpJson.Item("hTime").ToString
+            u.mTime = tmpJson.Item("mTime").ToString
+            u.sTime = tmpJson.Item("sTime").ToString
+            uList.Add(u)
+        Next
+        gameManager.rankList = uList
+        MsgBox(tmpJarry.ToString)
     End Sub
-
-
-
-
-
-
-
 
     Private Sub Form1_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
         If IsConn = True Then
             Dim h_type As Integer = Header.Disconn
             client.SendData(h_type.ToString)
-
             client.Close()
             client.Del()
         End If
     End Sub
 
-
-
-
-
-
     Private gameManager As GameManager = GameManager.getInstance
     Private Sub StartForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         SysMduleInit()
         System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance)
-
-
-
         servAddr = "127.0.0.1"
         userName = "asd"
-
         If ServerConnect() = True Then
-            MsgBox("server on")
+            MsgBox("서버에 정상적으로 연결되었습니다.")
         End If
-        Dim h_type As Integer = Header.Data
-        Dim data As String
-        data = h_type.ToString & "asd"
-        client.SendData(data)
+        If gameManager.gameSnds.IsPlaying("start") Then
+            gameManager.gameSnds.Stop("start")
+        End If
+        gameManager.gameSnds.Play("loby")
 
-
-
-
-
-
-
-
-        'If gameManager.gameSnds.IsPlaying("start") Then
-        '    gameManager.gameSnds.Stop("start")
-        'End If
-
-        'gameManager.gameSnds.Play("loby")
 
         With StartButton
             .Font = m6Font
@@ -180,6 +153,7 @@ Public Class StartForm
         Select Case btn.Name
             Case "StartButton"
                 gameManager.gameSnds.Stop("loby")
+                gameManager.gameSnds.Play("start")
                 Dim formPlay As New MainForm
                 formPlay.Show()
                 Hide()
@@ -198,12 +172,20 @@ Public Class StartForm
                 Dim result As DialogResult = MessageBox.Show("정말로 종료하시겠습니까?", "Game Exit", MessageBoxButtons.YesNo)
                 If result = DialogResult.Yes Then
                     Disconnect()
-                    MsgBox("dis")
                     Close()
                 End If
         End Select
     End Sub
 
+    Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
+        gameManager = GameManager.getInstance
+        If Not gameManager.serverSendFlag = True Then
+            If Not gameManager.rank = "" Then
+                client.SendData(CInt(Header.Data).ToString & gameManager.rank)
+                gameManager.serverSendFlag = True
 
+            End If
+        End If
 
+    End Sub
 End Class

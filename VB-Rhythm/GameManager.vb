@@ -16,8 +16,13 @@
     Public userDieState As Short = 0
     Public soundState As Short = 0
     Public gameSnds As GameSounds
-    Public user As User
-    Public rank As String
+    Public serverSendFlag As Boolean = False
+    Public user As New User
+    Public rank As String = ""
+
+
+    Public rankList As New ArrayList
+
 
 
 

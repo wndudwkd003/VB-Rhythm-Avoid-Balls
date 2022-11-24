@@ -19,6 +19,7 @@ Public Class MainForm
     Private mainGameStart As Boolean
     Private angle As Double = 0.0
     Private timerNow As ULong
+    Private bgSoundsTimerRecent As ULong = 0
     Private scoreTimerRecent As ULong = 0
     Private powerTimerRecent As ULong = 0
     Private recodTimerRecent As ULong = 0
@@ -35,7 +36,9 @@ Public Class MainForm
 
 
     Private Sub DelPlaySounds(str As String)
-        gameSndIns.Play(str)
+        gameManager = GameManager.getInstance
+        gameManager.gameSnds.Play(str)
+        'gameSndIns.Play(str)
     End Sub
 
     Private Sub DelGameOver(gameManager As GameManager)
@@ -55,9 +58,8 @@ Public Class MainForm
             .Show()
         End With
 
-        Dim gmJson As String = gameManager.rank
+        ' json make
         Dim tmpJson As New JObject()
-
         With tmpJson
             .Add("nickname", user.nickname)
             .Add("score", user.score)
@@ -65,9 +67,8 @@ Public Class MainForm
             .Add("mTime", user.mTime)
             .Add("sTime", user.sTime)
         End With
-
-
-        tmpJson.ToString()
+        gameManager.rank = tmpJson.ToString()
+        'MsgBox(gameManager.rank)
 
 
         Close()
@@ -76,8 +77,10 @@ Public Class MainForm
 
     Private Sub MainForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         SysMduleInit()
+        gameManager.rank = ""
+        gameManager = GameManager.getInstance
         CheckForIllegalCrossThreadCalls = False
-
+        gameManager.serverSendFlag = False
         gameManager.playLife = 3
         gameManager.playTime = 0
         gameManager.hourPlayTime = 0
@@ -90,6 +93,8 @@ Public Class MainForm
         gameSndIns.AddSound("start", "./Music/Start.wav")
         gameSndIns.AddSound("score", "./Music/GetScore.wav")
         gameSndIns.AddSound("die", "./Music/die.wav")
+
+        Me.Invoke(New DelegateInstance(AddressOf DelPlaySounds), "start")
 
         TimeLabel.Text = "Timer : 00.00.00"
         ScoreLabel.Text = "Score : 0"
@@ -146,9 +151,7 @@ Public Class MainForm
 
     Private Sub MainLoopFunction(sender As Object, e As ElapsedEventArgs)
         If mainGameStart = True Then
-            'If Not gameManager.gameSnds.IsPlaying("start") Then
-            '    Me.Invoke(New DelegateInstance(AddressOf DelPlaySounds), "start")
-            'End If
+
 
             ''''''''''''''''''''''''''''
 
@@ -183,6 +186,11 @@ Public Class MainForm
                         Exit For
                     End If
                 Next
+            End If
+
+            If timerNow >= recodTimerRecent + 4000000000 Then
+                recodTimerRecent = timerNow
+                Me.Invoke(New DelegateInstance(AddressOf DelPlaySounds), "start")
             End If
 
             If timerNow >= recodTimerRecent + 1000000 Then
@@ -230,7 +238,7 @@ Public Class MainForm
                         PowerLabel.Visible = True
                         gameManager.userDieState = 1
                         gameManager.playLife -= 1
-                        'Me.Invoke(New DelegateInstance(AddressOf DelPlaySounds), "die")
+                        Me.Invoke(New DelegateInstance(AddressOf DelPlaySounds), "die")
                         gameManager.gameSnds.Play("die")
                         If gameManager.playLife <= -1 And Not gameManager.gameOverFlag = True Then
                             gameManager.gameOverFlag = True
@@ -260,7 +268,7 @@ Public Class MainForm
                         scoreBalls(u).scoreBall.coord.X = -10
                         scoreBalls(u).scoreBall.coord.Y = -10
                         gameManager.playScore += 1
-                        'Me.Invoke(New DelegateInstance(AddressOf DelPlaySounds), "score")
+                        Me.Invoke(New DelegateInstance(AddressOf DelPlaySounds), "score")
                         scoreBalls(u).flag = False
                     End If
                 End If

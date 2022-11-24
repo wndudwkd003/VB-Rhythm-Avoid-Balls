@@ -31,9 +31,9 @@ Partial Class Rank
         Me.RankButton_3 = New System.Windows.Forms.Button()
         Me.RankButton_4 = New System.Windows.Forms.Button()
         Me.RankButton_5 = New System.Windows.Forms.Button()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.Label4 = New System.Windows.Forms.Label()
+        Me.UsNickname = New System.Windows.Forms.Label()
+        Me.UsScore = New System.Windows.Forms.Label()
+        Me.UsTime = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.SuspendLayout()
@@ -133,35 +133,35 @@ Partial Class Rank
         Me.RankButton_5.Text = "5st. nickname"
         Me.RankButton_5.UseVisualStyleBackColor = True
         '
-        'Label2
+        'UsNickname
         '
-        Me.Label2.AutoSize = True
-        Me.Label2.Font = New System.Drawing.Font("DOSIyagiBoldface", 20.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
-        Me.Label2.Location = New System.Drawing.Point(312, 192)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(96, 27)
-        Me.Label2.TabIndex = 0
-        Me.Label2.Text = "닉네임"
+        Me.UsNickname.AutoSize = True
+        Me.UsNickname.Font = New System.Drawing.Font("DOSIyagiBoldface", 20.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
+        Me.UsNickname.Location = New System.Drawing.Point(312, 192)
+        Me.UsNickname.Name = "UsNickname"
+        Me.UsNickname.Size = New System.Drawing.Size(96, 27)
+        Me.UsNickname.TabIndex = 0
+        Me.UsNickname.Text = "닉네임"
         '
-        'Label3
+        'UsScore
         '
-        Me.Label3.AutoSize = True
-        Me.Label3.Font = New System.Drawing.Font("DOSIyagiBoldface", 20.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
-        Me.Label3.Location = New System.Drawing.Point(312, 286)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(68, 27)
-        Me.Label3.TabIndex = 0
-        Me.Label3.Text = "점수"
+        Me.UsScore.AutoSize = True
+        Me.UsScore.Font = New System.Drawing.Font("DOSIyagiBoldface", 20.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
+        Me.UsScore.Location = New System.Drawing.Point(312, 286)
+        Me.UsScore.Name = "UsScore"
+        Me.UsScore.Size = New System.Drawing.Size(68, 27)
+        Me.UsScore.TabIndex = 0
+        Me.UsScore.Text = "점수"
         '
-        'Label4
+        'UsTime
         '
-        Me.Label4.AutoSize = True
-        Me.Label4.Font = New System.Drawing.Font("DOSIyagiBoldface", 20.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
-        Me.Label4.Location = New System.Drawing.Point(312, 378)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(68, 27)
-        Me.Label4.TabIndex = 0
-        Me.Label4.Text = "시간"
+        Me.UsTime.AutoSize = True
+        Me.UsTime.Font = New System.Drawing.Font("DOSIyagiBoldface", 20.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
+        Me.UsTime.Location = New System.Drawing.Point(312, 378)
+        Me.UsTime.Name = "UsTime"
+        Me.UsTime.Size = New System.Drawing.Size(68, 27)
+        Me.UsTime.TabIndex = 0
+        Me.UsTime.Text = "시간"
         '
         'Label5
         '
@@ -194,11 +194,11 @@ Partial Class Rank
         Me.Controls.Add(Me.RankButton_3)
         Me.Controls.Add(Me.RankButton_2)
         Me.Controls.Add(Me.RankButton_1)
-        Me.Controls.Add(Me.Label4)
+        Me.Controls.Add(Me.UsTime)
         Me.Controls.Add(Me.TimeLabel)
-        Me.Controls.Add(Me.Label3)
+        Me.Controls.Add(Me.UsScore)
         Me.Controls.Add(Me.ScoreLabel)
-        Me.Controls.Add(Me.Label2)
+        Me.Controls.Add(Me.UsNickname)
         Me.Controls.Add(Me.Label6)
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.NicknameLabel)
@@ -219,9 +219,9 @@ Partial Class Rank
     Friend WithEvents RankButton_3 As Button
     Friend WithEvents RankButton_4 As Button
     Friend WithEvents RankButton_5 As Button
-    Friend WithEvents Label2 As Label
-    Friend WithEvents Label3 As Label
-    Friend WithEvents Label4 As Label
+    Friend WithEvents UsNickname As Label
+    Friend WithEvents UsScore As Label
+    Friend WithEvents UsTime As Label
     Friend WithEvents Label5 As Label
     Friend WithEvents Label6 As Label
 End Class

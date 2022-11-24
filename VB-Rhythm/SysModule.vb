@@ -1,5 +1,7 @@
 ﻿Module SysModule
 
+
+
     ''''''''''''''''''''''''''''
     ' 오브젝트 관련
     Public ReadOnly bgSize As New Size(1280, 720)
