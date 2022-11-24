@@ -17,6 +17,8 @@
     Public soundState As Short = 0
     Public gameSnds As GameSounds
     Public user As User
+    Public rank As String
+
 
 
     Private Sub New()

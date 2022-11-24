@@ -1,6 +1,7 @@
 ﻿
 Imports System.Threading
 Imports System.Timers
+Imports Newtonsoft.Json.Linq
 
 Public Class MainForm
 
@@ -53,6 +54,22 @@ Public Class MainForm
         With StartForm
             .Show()
         End With
+
+        Dim gmJson As String = gameManager.rank
+        Dim tmpJson As New JObject()
+
+        With tmpJson
+            .Add("nickname", user.nickname)
+            .Add("score", user.score)
+            .Add("hTime", user.hTime)
+            .Add("mTime", user.mTime)
+            .Add("sTime", user.sTime)
+        End With
+
+
+        tmpJson.ToString()
+
+
         Close()
     End Sub
 
@@ -66,6 +83,9 @@ Public Class MainForm
         gameManager.hourPlayTime = 0
         gameManager.minPlayTime = 0
         gameManager.secPlayTime = 0
+        gameManager.playScore = 0
+        gameManager.gameOverFlag = False
+        gameManager.userDieState = 0
 
         gameSndIns.AddSound("start", "./Music/Start.wav")
         gameSndIns.AddSound("score", "./Music/GetScore.wav")
@@ -216,6 +236,8 @@ Public Class MainForm
                             gameManager.gameOverFlag = True
                             mainGameStart = False
                             MainLoopTimer.Enabled = False
+                            MainLoopTimer.Stop()
+
                             Me.Invoke(New DelegateInstance2(AddressOf DelGameOver), gameManager)
                             Exit Sub
                         End If
