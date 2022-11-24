@@ -2,13 +2,14 @@
 
 Public Class StartForm
     Private gameManager As GameManager = GameManager.getInstance
-    Private mouseOverFlag As Short = 0
     Private Sub StartForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         SysMduleInit()
 
-        gameManager.gameSnds.Stop("start")
+        'If gameManager.gameSnds.IsPlaying("start") Then
+        '    gameManager.gameSnds.Stop("start")
+        'End If
 
-        gameManager.gameSnds.Play("loby")
+        'gameManager.gameSnds.Play("loby")
 
         With StartButton
             .Font = m6Font
@@ -71,6 +72,9 @@ Public Class StartForm
                 Hide()
 
             Case "RankButton"
+                Dim formPlay As New Rank
+                formPlay.Show()
+                Hide()
 
             Case "LearnButton"
                 Dim formPlay As New LearnForm

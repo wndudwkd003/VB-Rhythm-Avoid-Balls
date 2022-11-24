@@ -20,7 +20,7 @@
             coord = New Point(x2, y2)
         End If
 
-        speed = ran.Next(1, 5)
+        speed = ran.Next(1, 7)
         distance = ran.Next(700, 1000)
         angle = ran.Next(0, 360)
 

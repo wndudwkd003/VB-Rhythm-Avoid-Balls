@@ -3,21 +3,24 @@
 
     Public playTime As ULong = 0
     Public playTimeStr As String
-    Public hourPlayTime, minPlayTime, secPlayTime, msPlayTime As UInteger
+    Public hourPlayTime As UInteger = 0
+    Public minPlayTime As UInteger = 0
+    Public secPlayTime As UInteger = 0
+    Public msPlayTime As UInteger = 0
     Public playScore As Integer = 0
     Public playScoreStr As String
     Public playLife As Short = 3
     Public playLifeStr As String
-
+    Public gameOverFlag As Boolean = False
+    Public scoreState As Boolean = False
     Public userDieState As Short = 0
-
     Public soundState As Short = 0
-
     Public gameSnds As GameSounds
+    Public user As User
+
 
     Private Sub New()
         gameSnds = New GameSounds
-
         gameSnds.AddSound("start", "./Music/Start.wav")
         gameSnds.AddSound("loby", "./Music/Loby.wav")
         gameSnds.AddSound("click", "./Music/ButtonClick.wav")
@@ -27,9 +30,7 @@
         gameSnds.AddSound("mouse", "./Music/mouse.wav")
     End Sub
 
-
     Public Shared Function getInstance() As GameManager
-
         If (singleTonObj Is Nothing) Then
             singleTonObj = New GameManager()
         End If

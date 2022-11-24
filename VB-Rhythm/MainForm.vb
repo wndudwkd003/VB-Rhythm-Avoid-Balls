@@ -10,40 +10,66 @@ Public Class MainForm
     End Structure
 
     Private gameManager As GameManager = GameManager.getInstance
-
+    Private gameSndIns As New GameSounds
     Private balls(100) As Ball
     Private userBall As New Ball(userFirstCoord, 0, userFirstAngle, userFirstDistance)
-
     Private scoreBalls(50) As ScoreBall
-
     Private inputKeys As New ArrayList
     Private mainGameStart As Boolean
-
     Private angle As Double = 0.0
-
     Private timerNow As ULong
     Private scoreTimerRecent As ULong = 0
     Private powerTimerRecent As ULong = 0
     Private recodTimerRecent As ULong = 0
-
-
-
-
+    Private scoreGetTimerRecent As ULong = 0
     Private powerTime As Integer = 6
-
-
-
     Private MainLoopTimer As System.Timers.Timer
     Private MainLoopInterval As Integer = 33
 
 
+    Private Delegate Sub DelegateInstance(str As String)
+
+
+    Private Delegate Sub DelegateInstance2(gameManager As GameManager)
+
+
+    Private Sub DelPlaySounds(str As String)
+        gameSndIns.Play(str)
+    End Sub
+
+    Private Sub DelGameOver(gameManager As GameManager)
+        Dim user As New User
+        user.nickname = "test"
+        user.score = gameManager.playScore
+        user.hTime = gameManager.hourPlayTime
+        user.mTime = gameManager.minPlayTime
+        user.sTime = gameManager.secPlayTime
+        Dim result As DialogResult = MessageBox.Show("기록을 남기시겠습니까?", "Game Over", MessageBoxButtons.YesNo)
+        If result = DialogResult.Yes Then
+            Dim input = InputBox("닉네임을 입력해주세요")
+            user.nickname = input.ToString
+            gameManager.user = user
+        End If
+        With StartForm
+            .Show()
+        End With
+        Close()
+    End Sub
 
 
     Private Sub MainForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         SysMduleInit()
         CheckForIllegalCrossThreadCalls = False
 
-        gameManager.gameSnds.Play("start")
+        gameManager.playLife = 3
+        gameManager.playTime = 0
+        gameManager.hourPlayTime = 0
+        gameManager.minPlayTime = 0
+        gameManager.secPlayTime = 0
+
+        gameSndIns.AddSound("start", "./Music/Start.wav")
+        gameSndIns.AddSound("score", "./Music/GetScore.wav")
+        gameSndIns.AddSound("die", "./Music/die.wav")
 
         TimeLabel.Text = "Timer : 00.00.00"
         ScoreLabel.Text = "Score : 0"
@@ -76,8 +102,6 @@ Public Class MainForm
         '    .BackColor = Color.Transparent
         'End With
 
-
-
         For i = 0 To maxEnemyCnt
             Dim ball As New Ball(New Point(0, 0), 0.0, 0.0, 0.0)
             ball.SetRandCoord()
@@ -101,12 +125,10 @@ Public Class MainForm
     End Sub
 
     Private Sub MainLoopFunction(sender As Object, e As ElapsedEventArgs)
-
-        'If Not gameManager.gameSnds.IsPlaying("start") Then
-        '    gameManager.gameSnds.Play("start")
-        'End If
-
         If mainGameStart = True Then
+            'If Not gameManager.gameSnds.IsPlaying("start") Then
+            '    Me.Invoke(New DelegateInstance(AddressOf DelPlaySounds), "start")
+            'End If
 
             ''''''''''''''''''''''''''''
 
@@ -143,10 +165,14 @@ Public Class MainForm
                 Next
             End If
 
-
             If timerNow >= recodTimerRecent + 1000000 Then
                 recodTimerRecent = timerNow
                 gameManager.playTime += 100
+            End If
+
+            If timerNow >= scoreGetTimerRecent + 10000 Then
+                scoreGetTimerRecent = timerNow
+                gameManager.scoreState = False
             End If
 
             If gameManager.userDieState = 1 And timerNow >= powerTimerRecent + 10000000 Then
@@ -184,7 +210,15 @@ Public Class MainForm
                         PowerLabel.Visible = True
                         gameManager.userDieState = 1
                         gameManager.playLife -= 1
+                        'Me.Invoke(New DelegateInstance(AddressOf DelPlaySounds), "die")
                         gameManager.gameSnds.Play("die")
+                        If gameManager.playLife <= -1 And Not gameManager.gameOverFlag = True Then
+                            gameManager.gameOverFlag = True
+                            mainGameStart = False
+                            MainLoopTimer.Enabled = False
+                            Me.Invoke(New DelegateInstance2(AddressOf DelGameOver), gameManager)
+                            Exit Sub
+                        End If
                     End If
                 End If
             Next
@@ -199,11 +233,14 @@ Public Class MainForm
                 If Math.Pow(userFirstSize.Width / 2, 2) >=
                 (Math.Pow(userBall.coord.X + userFirstSize.Width / 2 - scoreBalls(u).scoreBall.coord.X - enemySBallSize.Width / 2, 2) +
                 Math.Pow(userBall.coord.Y + userFirstSize.Height / 2 - scoreBalls(u).scoreBall.coord.Y - enemySBallSize.Height / 2, 2)) Then
-                    scoreBalls(u).scoreBall.coord.X = -10
-                    scoreBalls(u).scoreBall.coord.Y = -10
-                    gameManager.playScore += 1
-                    gameManager.gameSnds.Play("score")
-                    scoreBalls(u).flag = False
+                    If Not gameManager.scoreState = True Then
+                        gameManager.scoreState = True
+                        scoreBalls(u).scoreBall.coord.X = -10
+                        scoreBalls(u).scoreBall.coord.Y = -10
+                        gameManager.playScore += 1
+                        'Me.Invoke(New DelegateInstance(AddressOf DelPlaySounds), "score")
+                        scoreBalls(u).flag = False
+                    End If
                 End If
             Next
 
@@ -217,8 +254,6 @@ Public Class MainForm
                 ElseIf inputKeys(i) = Keys.Right Then
                     angle -= angleIncrease
                     userBall.angle += userAngleIncrease
-
-
                 End If
 
                 If userBall.angle >= userMaxMoveAngle + userFirstAngle Then
