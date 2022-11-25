@@ -23,19 +23,10 @@ Partial Class Rank
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.RankButton_1 = New System.Windows.Forms.Button()
         Me.NicknameLabel = New System.Windows.Forms.Label()
         Me.ScoreLabel = New System.Windows.Forms.Label()
         Me.TimeLabel = New System.Windows.Forms.Label()
-        Me.RankButton_2 = New System.Windows.Forms.Button()
-        Me.RankButton_3 = New System.Windows.Forms.Button()
-        Me.RankButton_4 = New System.Windows.Forms.Button()
-        Me.RankButton_5 = New System.Windows.Forms.Button()
-        Me.UsNickname = New System.Windows.Forms.Label()
-        Me.UsScore = New System.Windows.Forms.Label()
-        Me.UsTime = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
-        Me.Label6 = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'Label1
@@ -48,158 +39,54 @@ Partial Class Rank
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Player Ranking"
         '
-        'RankButton_1
-        '
-        Me.RankButton_1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.RankButton_1.Location = New System.Drawing.Point(500, 43)
-        Me.RankButton_1.Name = "RankButton_1"
-        Me.RankButton_1.Size = New System.Drawing.Size(223, 60)
-        Me.RankButton_1.TabIndex = 1
-        Me.RankButton_1.TabStop = False
-        Me.RankButton_1.Text = "1st. nickname"
-        Me.RankButton_1.UseVisualStyleBackColor = True
-        '
         'NicknameLabel
         '
-        Me.NicknameLabel.AutoSize = True
         Me.NicknameLabel.Font = New System.Drawing.Font("DOSIyagiBoldface", 20.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
-        Me.NicknameLabel.Location = New System.Drawing.Point(88, 192)
+        Me.NicknameLabel.Location = New System.Drawing.Point(46, 183)
         Me.NicknameLabel.Name = "NicknameLabel"
-        Me.NicknameLabel.Size = New System.Drawing.Size(96, 27)
+        Me.NicknameLabel.Size = New System.Drawing.Size(403, 59)
         Me.NicknameLabel.TabIndex = 0
         Me.NicknameLabel.Text = "닉네임"
+        Me.NicknameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'ScoreLabel
         '
-        Me.ScoreLabel.AutoSize = True
         Me.ScoreLabel.Font = New System.Drawing.Font("DOSIyagiBoldface", 20.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
-        Me.ScoreLabel.Location = New System.Drawing.Point(88, 286)
+        Me.ScoreLabel.Location = New System.Drawing.Point(144, 257)
         Me.ScoreLabel.Name = "ScoreLabel"
-        Me.ScoreLabel.Size = New System.Drawing.Size(68, 27)
+        Me.ScoreLabel.Size = New System.Drawing.Size(222, 52)
         Me.ScoreLabel.TabIndex = 0
         Me.ScoreLabel.Text = "점수"
+        Me.ScoreLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'TimeLabel
         '
-        Me.TimeLabel.AutoSize = True
         Me.TimeLabel.Font = New System.Drawing.Font("DOSIyagiBoldface", 20.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
-        Me.TimeLabel.Location = New System.Drawing.Point(88, 378)
+        Me.TimeLabel.Location = New System.Drawing.Point(139, 329)
         Me.TimeLabel.Name = "TimeLabel"
-        Me.TimeLabel.Size = New System.Drawing.Size(68, 27)
+        Me.TimeLabel.Size = New System.Drawing.Size(227, 57)
         Me.TimeLabel.TabIndex = 0
         Me.TimeLabel.Text = "시간"
-        '
-        'RankButton_2
-        '
-        Me.RankButton_2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.RankButton_2.Location = New System.Drawing.Point(500, 123)
-        Me.RankButton_2.Name = "RankButton_2"
-        Me.RankButton_2.Size = New System.Drawing.Size(223, 60)
-        Me.RankButton_2.TabIndex = 1
-        Me.RankButton_2.TabStop = False
-        Me.RankButton_2.Text = "2st. nickname"
-        Me.RankButton_2.UseVisualStyleBackColor = True
-        '
-        'RankButton_3
-        '
-        Me.RankButton_3.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.RankButton_3.Location = New System.Drawing.Point(500, 201)
-        Me.RankButton_3.Name = "RankButton_3"
-        Me.RankButton_3.Size = New System.Drawing.Size(223, 60)
-        Me.RankButton_3.TabIndex = 1
-        Me.RankButton_3.TabStop = False
-        Me.RankButton_3.Text = "3st. nickname"
-        Me.RankButton_3.UseVisualStyleBackColor = True
-        '
-        'RankButton_4
-        '
-        Me.RankButton_4.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.RankButton_4.Location = New System.Drawing.Point(500, 279)
-        Me.RankButton_4.Name = "RankButton_4"
-        Me.RankButton_4.Size = New System.Drawing.Size(223, 60)
-        Me.RankButton_4.TabIndex = 1
-        Me.RankButton_4.TabStop = False
-        Me.RankButton_4.Text = "4st. nickname"
-        Me.RankButton_4.UseVisualStyleBackColor = True
-        '
-        'RankButton_5
-        '
-        Me.RankButton_5.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.RankButton_5.Location = New System.Drawing.Point(500, 357)
-        Me.RankButton_5.Name = "RankButton_5"
-        Me.RankButton_5.Size = New System.Drawing.Size(223, 60)
-        Me.RankButton_5.TabIndex = 1
-        Me.RankButton_5.TabStop = False
-        Me.RankButton_5.Text = "5st. nickname"
-        Me.RankButton_5.UseVisualStyleBackColor = True
-        '
-        'UsNickname
-        '
-        Me.UsNickname.AutoSize = True
-        Me.UsNickname.Font = New System.Drawing.Font("DOSIyagiBoldface", 20.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
-        Me.UsNickname.Location = New System.Drawing.Point(312, 192)
-        Me.UsNickname.Name = "UsNickname"
-        Me.UsNickname.Size = New System.Drawing.Size(96, 27)
-        Me.UsNickname.TabIndex = 0
-        Me.UsNickname.Text = "닉네임"
-        '
-        'UsScore
-        '
-        Me.UsScore.AutoSize = True
-        Me.UsScore.Font = New System.Drawing.Font("DOSIyagiBoldface", 20.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
-        Me.UsScore.Location = New System.Drawing.Point(312, 286)
-        Me.UsScore.Name = "UsScore"
-        Me.UsScore.Size = New System.Drawing.Size(68, 27)
-        Me.UsScore.TabIndex = 0
-        Me.UsScore.Text = "점수"
-        '
-        'UsTime
-        '
-        Me.UsTime.AutoSize = True
-        Me.UsTime.Font = New System.Drawing.Font("DOSIyagiBoldface", 20.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
-        Me.UsTime.Location = New System.Drawing.Point(312, 378)
-        Me.UsTime.Name = "UsTime"
-        Me.UsTime.Size = New System.Drawing.Size(68, 27)
-        Me.UsTime.TabIndex = 0
-        Me.UsTime.Text = "시간"
+        Me.TimeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'Label5
         '
-        Me.Label5.AutoSize = True
         Me.Label5.Font = New System.Drawing.Font("DOSIyagiBoldface", 20.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
-        Me.Label5.Location = New System.Drawing.Point(78, 110)
+        Me.Label5.Location = New System.Drawing.Point(139, 109)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(117, 27)
+        Me.Label5.Size = New System.Drawing.Size(227, 54)
         Me.Label5.TabIndex = 0
         Me.Label5.Text = "My Rank"
-        '
-        'Label6
-        '
-        Me.Label6.AutoSize = True
-        Me.Label6.Font = New System.Drawing.Font("DOSIyagiBoldface", 20.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
-        Me.Label6.Location = New System.Drawing.Point(284, 110)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(147, 27)
-        Me.Label6.TabIndex = 0
-        Me.Label6.Text = "User Rank"
+        Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'Rank
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
-        Me.ClientSize = New System.Drawing.Size(800, 450)
-        Me.Controls.Add(Me.RankButton_5)
-        Me.Controls.Add(Me.RankButton_4)
-        Me.Controls.Add(Me.RankButton_3)
-        Me.Controls.Add(Me.RankButton_2)
-        Me.Controls.Add(Me.RankButton_1)
-        Me.Controls.Add(Me.UsTime)
+        Me.ClientSize = New System.Drawing.Size(491, 450)
         Me.Controls.Add(Me.TimeLabel)
-        Me.Controls.Add(Me.UsScore)
         Me.Controls.Add(Me.ScoreLabel)
-        Me.Controls.Add(Me.UsNickname)
-        Me.Controls.Add(Me.Label6)
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.NicknameLabel)
         Me.Controls.Add(Me.Label1)
@@ -211,17 +98,8 @@ Partial Class Rank
     End Sub
 
     Friend WithEvents Label1 As Label
-    Friend WithEvents RankButton_1 As Button
     Friend WithEvents NicknameLabel As Label
     Friend WithEvents ScoreLabel As Label
     Friend WithEvents TimeLabel As Label
-    Friend WithEvents RankButton_2 As Button
-    Friend WithEvents RankButton_3 As Button
-    Friend WithEvents RankButton_4 As Button
-    Friend WithEvents RankButton_5 As Button
-    Friend WithEvents UsNickname As Label
-    Friend WithEvents UsScore As Label
-    Friend WithEvents UsTime As Label
     Friend WithEvents Label5 As Label
-    Friend WithEvents Label6 As Label
 End Class

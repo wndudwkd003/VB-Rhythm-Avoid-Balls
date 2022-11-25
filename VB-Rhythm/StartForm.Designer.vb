@@ -22,13 +22,11 @@ Partial Class StartForm
     '코드 편집기에서는 수정하지 마세요.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.StartButton = New System.Windows.Forms.Button()
         Me.RankButton = New System.Windows.Forms.Button()
         Me.LearnButton = New System.Windows.Forms.Button()
         Me.ExitButton = New System.Windows.Forms.Button()
-        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.SuspendLayout()
         '
         'Label1
@@ -68,7 +66,7 @@ Partial Class StartForm
         Me.RankButton.Size = New System.Drawing.Size(209, 58)
         Me.RankButton.TabIndex = 2
         Me.RankButton.TabStop = False
-        Me.RankButton.Text = "Player Rank"
+        Me.RankButton.Text = "Recent Record"
         Me.RankButton.UseVisualStyleBackColor = True
         '
         'LearnButton
@@ -101,10 +99,6 @@ Partial Class StartForm
         Me.ExitButton.Text = "Game Exit"
         Me.ExitButton.UseVisualStyleBackColor = True
         '
-        'Timer1
-        '
-        Me.Timer1.Enabled = True
-        '
         'StartForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
@@ -130,5 +124,4 @@ Partial Class StartForm
     Friend WithEvents RankButton As Button
     Friend WithEvents LearnButton As Button
     Friend WithEvents ExitButton As Button
-    Friend WithEvents Timer1 As Timer
 End Class

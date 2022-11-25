@@ -9,7 +9,7 @@ Public Class MainForm
         Dim scoreBall As Ball
         Dim flag As Boolean
     End Structure
-
+    Private dieFlag As Boolean = False
     Private gameManager As GameManager = GameManager.getInstance
     Private gameSndIns As New GameSounds
     Private balls(100) As Ball
@@ -27,14 +27,8 @@ Public Class MainForm
     Private powerTime As Integer = 6
     Private MainLoopTimer As System.Timers.Timer
     Private MainLoopInterval As Integer = 33
-
-
     Private Delegate Sub DelegateInstance(str As String)
-
-
     Private Delegate Sub DelegateInstance2(gameManager As GameManager)
-
-
     Private Sub DelPlaySounds(str As String)
         gameManager = GameManager.getInstance
         gameManager.gameSnds.Play(str)
@@ -50,15 +44,13 @@ Public Class MainForm
         user.sTime = gameManager.secPlayTime
         Dim result As DialogResult = MessageBox.Show("기록을 남기시겠습니까?", "Game Over", MessageBoxButtons.YesNo)
         If result = DialogResult.Yes Then
-            Dim input = InputBox("닉네임을 입력해주세요")
+            Dim input = InputBox("닉네임을 입력해주세요", "닉네임", 100, 200)
             user.nickname = input.ToString
             gameManager.user = user
         End If
         With StartForm
             .Show()
         End With
-
-        ' json make
         Dim tmpJson As New JObject()
         With tmpJson
             .Add("nickname", user.nickname)
@@ -68,9 +60,6 @@ Public Class MainForm
             .Add("sTime", user.sTime)
         End With
         gameManager.rank = tmpJson.ToString()
-        'MsgBox(gameManager.rank)
-
-
         Close()
     End Sub
 
@@ -89,6 +78,9 @@ Public Class MainForm
         gameManager.playScore = 0
         gameManager.gameOverFlag = False
         gameManager.userDieState = 0
+        recodTimerRecent = 0
+        scoreGetTimerRecent = 0
+        powerTimerRecent = 0
 
         gameSndIns.AddSound("start", "./Music/Start.wav")
         gameSndIns.AddSound("score", "./Music/GetScore.wav")
@@ -116,16 +108,6 @@ Public Class MainForm
         With PowerLabel
             .Font = m6Font
         End With
-
-        'With BackButton
-        '    .Font = m6Font
-        '    .Padding = New Padding(0, 3, 0, 0)
-        '    .FlatAppearance.BorderSize = 0
-        '    .FlatAppearance.BorderColor = Color.Gray
-        '    .FlatAppearance.MouseDownBackColor = fixedDGRAY
-        '    .FlatAppearance.MouseOverBackColor = fixedGRAY
-        '    .BackColor = Color.Transparent
-        'End With
 
         For i = 0 To maxEnemyCnt
             Dim ball As New Ball(New Point(0, 0), 0.0, 0.0, 0.0)
@@ -213,6 +195,7 @@ Public Class MainForm
                 Else
                     powerTime -= 1
                     PowerLabel.Text = powerTime
+                    dieFlag = Not dieFlag
                 End If
             End If
 
@@ -319,7 +302,12 @@ Public Class MainForm
 
     Private Sub MainForm_Paint(sender As Object, e As PaintEventArgs) Handles MyBase.Paint
         e.Graphics.DrawEllipse(bgPen_01, midCircleCoord.X, midCircleCoord.Y, midCircleSize.Width, midCircleSize.Height)
-        e.Graphics.DrawEllipse(bgPen_01, userBall.coord.X, userBall.coord.Y, userFirstSize.Width, userFirstSize.Height)
+
+        If dieFlag = False Then
+            e.Graphics.DrawEllipse(bgPen_01, userBall.coord.X, userBall.coord.Y, userFirstSize.Width, userFirstSize.Height)
+        Else
+            e.Graphics.DrawEllipse(bgPen_02, userBall.coord.X, userBall.coord.Y, userFirstSize.Width, userFirstSize.Height)
+        End If
         For i = 0 To 100
             e.Graphics.FillEllipse(Brushes.Black, balls(i).coord.X, balls(i).coord.Y, enemySBallSize.Width, enemySBallSize.Height)
         Next

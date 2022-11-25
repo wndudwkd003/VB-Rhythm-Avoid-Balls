@@ -25,6 +25,7 @@
     ''''''''''''''''''''''''''''
     ' UI 관련
     Public bgPen_01 As Pen
+    Public bgPen_02 As Pen
     Public ReadOnly m6Font As New Font("m6x11", 20)
     Public ReadOnly dosFont As New Font("DOSIyagiBoldface", 20)
     Public MAX_ALPHA As Short = 255
@@ -43,7 +44,9 @@
         bgPen_01 = New Pen(Brushes.Black) With {
             .Width = 2
         }
-
+        bgPen_02 = New Pen(Brushes.Gray) With {
+            .Width = 2
+        }
 
     End Sub
 
