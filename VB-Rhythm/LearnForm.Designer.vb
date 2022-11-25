@@ -22,6 +22,7 @@ Partial Class LearnForm
     '코드 편집기에서는 수정하지 마세요.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(LearnForm))
         Me.LearnLabel = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
@@ -48,8 +49,9 @@ Partial Class LearnForm
         Me.ClientSize = New System.Drawing.Size(1264, 681)
         Me.Controls.Add(Me.LearnLabel)
         Me.DoubleBuffered = True
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "LearnForm"
-        Me.Text = "LearnForm"
+        Me.Text = "Dodge : Avoid Balls"
         Me.ResumeLayout(False)
 
     End Sub

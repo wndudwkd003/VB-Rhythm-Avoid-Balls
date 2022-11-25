@@ -34,7 +34,9 @@
     Public GRAY_LIGHT As Color = Color.FromArgb(MAX_ALPHA, 107, 121, 141)
     Public fixedGRAY As Color = Color.FromArgb(80, GRAY_DEEP.R, GRAY_DEEP.G, GRAY_DEEP.B)
     Public fixedDGRAY As Color = Color.FromArgb(160, GRAY_DEEP.R, GRAY_DEEP.G, GRAY_DEEP.B)
-
+    Public bgBrush_01 As Brush
+    Public scoreBrush_01 As Brush
+    Public bgColor As Color = Color.FromArgb(MAX_ALPHA, 251, 251, 251)
     ''''''''''''''''''''''''''''
     ' 기타 값
     Public ReadOnly maxEnemyCnt As Integer = 100
@@ -44,9 +46,10 @@
         bgPen_01 = New Pen(Brushes.Black) With {
             .Width = 2
         }
-        bgPen_02 = New Pen(Brushes.Gray) With {
+        bgPen_02 = New Pen(Brushes.DarkGray) With {
             .Width = 2
         }
+        bgBrush_01 = New SolidBrush(bgColor)
 
     End Sub
 

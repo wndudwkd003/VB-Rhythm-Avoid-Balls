@@ -22,18 +22,21 @@ Partial Class StartForm
     '코드 편집기에서는 수정하지 마세요.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(StartForm))
         Me.Label1 = New System.Windows.Forms.Label()
         Me.StartButton = New System.Windows.Forms.Button()
         Me.RankButton = New System.Windows.Forms.Button()
         Me.LearnButton = New System.Windows.Forms.Button()
         Me.ExitButton = New System.Windows.Forms.Button()
+        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.SuspendLayout()
         '
         'Label1
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("DOSIyagiBoldface", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
-        Me.Label1.Location = New System.Drawing.Point(121, 126)
+        Me.Label1.Location = New System.Drawing.Point(121, 125)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(320, 32)
         Me.Label1.TabIndex = 0
@@ -99,11 +102,18 @@ Partial Class StartForm
         Me.ExitButton.Text = "Game Exit"
         Me.ExitButton.UseVisualStyleBackColor = True
         '
+        'Timer1
+        '
+        Me.Timer1.Enabled = True
+        Me.Timer1.Interval = 33
+        '
         'StartForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
+        Me.BackgroundImage = Global.VB_Rhythm.My.Resources.Resources.bg_start
+        Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.ClientSize = New System.Drawing.Size(564, 581)
         Me.Controls.Add(Me.ExitButton)
         Me.Controls.Add(Me.LearnButton)
@@ -112,8 +122,9 @@ Partial Class StartForm
         Me.Controls.Add(Me.Label1)
         Me.DoubleBuffered = True
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "StartForm"
-        Me.Text = "StartForm"
+        Me.Text = "Dodge : Avoid Balls"
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -124,4 +135,5 @@ Partial Class StartForm
     Friend WithEvents RankButton As Button
     Friend WithEvents LearnButton As Button
     Friend WithEvents ExitButton As Button
+    Friend WithEvents Timer1 As Timer
 End Class

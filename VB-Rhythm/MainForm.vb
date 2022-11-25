@@ -1,6 +1,8 @@
 ﻿
+Imports System.Drawing.Imaging
 Imports System.Threading
 Imports System.Timers
+Imports Microsoft.VisualBasic.Devices
 Imports Newtonsoft.Json.Linq
 
 Public Class MainForm
@@ -29,6 +31,17 @@ Public Class MainForm
     Private MainLoopInterval As Integer = 33
     Private Delegate Sub DelegateInstance(str As String)
     Private Delegate Sub DelegateInstance2(gameManager As GameManager)
+    Private Delegate Sub DelegateInstance3(fd As FrameDimension, fn As Integer, fc As Integer)
+
+    Public gif As Bitmap
+    Public fd As FrameDimension
+    Public frameCount As Integer
+    Public frameNum As Integer
+
+    Private Sub DelDrawGif(fd As FrameDimension, fn As Integer, fc As Integer)
+        gif.SelectActiveFrame(fd, fn Mod fc)
+    End Sub
+
     Private Sub DelPlaySounds(str As String)
         gameManager = GameManager.getInstance
         gameManager.gameSnds.Play(str)
@@ -67,6 +80,12 @@ Public Class MainForm
     Private Sub MainForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         SysMduleInit()
         gameManager.rank = ""
+        BackColor = bgColor
+        gif = My.Resources.audio
+        fd = New FrameDimension(gif.FrameDimensionsList(0))
+        frameCount = gif.GetFrameCount(fd)
+
+
         gameManager = GameManager.getInstance
         CheckForIllegalCrossThreadCalls = False
         gameManager.serverSendFlag = False
@@ -135,6 +154,12 @@ Public Class MainForm
         If mainGameStart = True Then
 
 
+
+
+            Me.Invoke(New DelegateInstance3(AddressOf DelDrawGif), fd, frameNum, frameCount)
+            frameNum += 1
+
+
             ''''''''''''''''''''''''''''
 
             TimeLabel.Text = gameManager.TimeToString
@@ -180,7 +205,7 @@ Public Class MainForm
                 gameManager.playTime += 100
             End If
 
-            If timerNow >= scoreGetTimerRecent + 10000 Then
+            If timerNow >= scoreGetTimerRecent + 100000 Then
                 scoreGetTimerRecent = timerNow
                 gameManager.scoreState = False
             End If
@@ -296,16 +321,19 @@ Public Class MainForm
 
             ''''''''''''''''''''''''''''
 
+
             Invalidate()
         End If
     End Sub
 
     Private Sub MainForm_Paint(sender As Object, e As PaintEventArgs) Handles MyBase.Paint
+        e.Graphics.DrawImage(gif, 168, 300)
+        e.Graphics.FillEllipse(bgBrush_01, midCircleCoord.X, midCircleCoord.Y, midCircleSize.Width, midCircleSize.Height)
         e.Graphics.DrawEllipse(bgPen_01, midCircleCoord.X, midCircleCoord.Y, midCircleSize.Width, midCircleSize.Height)
-
         If dieFlag = False Then
             e.Graphics.DrawEllipse(bgPen_01, userBall.coord.X, userBall.coord.Y, userFirstSize.Width, userFirstSize.Height)
         Else
+            e.Graphics.FillEllipse(Brushes.LightGray, userBall.coord.X, userBall.coord.Y, userFirstSize.Width, userFirstSize.Height)
             e.Graphics.DrawEllipse(bgPen_02, userBall.coord.X, userBall.coord.Y, userFirstSize.Width, userFirstSize.Height)
         End If
         For i = 0 To 100
@@ -313,7 +341,11 @@ Public Class MainForm
         Next
         For i = 0 To 50
             e.Graphics.FillEllipse(Brushes.Yellow, scoreBalls(i).scoreBall.coord.X, scoreBalls(i).scoreBall.coord.Y, enemySBallSize.Width, enemySBallSize.Height)
+            e.Graphics.DrawEllipse(Pens.Black, scoreBalls(i).scoreBall.coord.X, scoreBalls(i).scoreBall.coord.Y, enemySBallSize.Width, enemySBallSize.Height)
+
         Next
+
+
     End Sub
 
     Private Sub MainForm_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
@@ -338,6 +370,8 @@ Public Class MainForm
 
     Private Sub MainForm_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
         gameManager.gameSnds.Stop("start")
+
+        gameManager.gameSnds.Play("loby")
     End Sub
 
 End Class
