@@ -139,7 +139,7 @@ Public Class MainForm
 
         For i = 0 To maxScoreCnt
             Randomize()
-            Dim score As New Ball(New Point(10, -10), 0, Rnd() * 360, userFirstDistance)
+            Dim score As New Ball(New Point(10, -10), 0, Rnd(1) * 360, userFirstDistance)
             scoreBalls(i).scoreBall = score
             scoreBalls(i).flag = False
         Next
@@ -278,6 +278,8 @@ Public Class MainForm
                 Math.Pow(userBall.coord.Y + userFirstSize.Height / 2 - scoreBalls(u).scoreBall.coord.Y - enemySBallSize.Height / 2, 2)) Then
                     If Not gameManager.scoreState = True Then
                         gameManager.scoreState = True
+                        Randomize()
+                        scoreBalls(u).scoreBall.angle = Rnd(1) * 360
                         scoreBalls(u).scoreBall.coord.X = -10
                         scoreBalls(u).scoreBall.coord.Y = -10
                         gameManager.playScore += CInt(Rnd(1) * 3 + 1)
