@@ -22,6 +22,7 @@ Partial Class Rank
     '코드 편집기에서는 수정하지 마세요.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Rank))
         Me.Label1 = New System.Windows.Forms.Label()
         Me.NicknameLabel = New System.Windows.Forms.Label()
@@ -32,6 +33,7 @@ Partial Class Rank
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
+        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.SuspendLayout()
         '
         'Label1
@@ -133,6 +135,11 @@ Partial Class Rank
         Me.Label6.Text = "시간"
         Me.Label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
+        'Timer1
+        '
+        Me.Timer1.Enabled = True
+        Me.Timer1.Interval = 33
+        '
         'Rank
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
@@ -168,4 +175,5 @@ Partial Class Rank
     Friend WithEvents Label3 As Label
     Friend WithEvents Label4 As Label
     Friend WithEvents Label6 As Label
+    Friend WithEvents Timer1 As Timer
 End Class

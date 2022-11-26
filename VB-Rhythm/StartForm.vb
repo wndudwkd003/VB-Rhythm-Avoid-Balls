@@ -6,15 +6,22 @@ Imports Newtonsoft.Json.Linq
 
 Public Class StartForm
 
-    Private startBall(16) As Ball
+    Private startBall(26) As Ball
     Private gameManager As GameManager = GameManager.getInstance
 
     Public gif As Bitmap
     Public fd As FrameDimension
     Public frameCount As Integer
     Public frameNum As Integer
-
     Private Delegate Sub DelegateInstance3(fd As FrameDimension, fn As Integer, fc As Integer)
+    Private Delegate Sub DelegatePlayMusic()
+    Private Sub DelPlayMusic()
+        gameManager = GameManager.getInstance
+
+        If Not gameManager.gameSnds.IsPlaying("loby") Then
+            gameManager.gameSnds.Play("loby")
+        End If
+    End Sub
     Private Sub DelDrawGif(fd As FrameDimension, fn As Integer, fc As Integer)
         gif.SelectActiveFrame(fd, fn Mod fc)
     End Sub
@@ -33,7 +40,7 @@ Public Class StartForm
         End If
         gameManager.gameSnds.Play("loby")
 
-        For i = 0 To 15
+        For i = 0 To 25
             Dim ball As New Ball(New Point(200, 54), 0.0, Rnd(1) * 360, Rnd(1) * 300 + 120)
             startBall(i) = ball
         Next
@@ -86,7 +93,7 @@ Public Class StartForm
     Private Sub StartForm_Paint(sender As Object, e As PaintEventArgs) Handles MyBase.Paint
         e.Graphics.DrawImage(gif, 140, 200)
         e.Graphics.DrawEllipse(bgPen_01, 200, 54, midCircleSize.Width, midCircleSize.Height)
-        For i = 0 To 15
+        For i = 0 To 25
             e.Graphics.FillEllipse(Brushes.Black, startBall(i).coord.X, startBall(i).coord.Y, enemySBallSize.Width, enemySBallSize.Height)
         Next
     End Sub
@@ -98,6 +105,7 @@ Public Class StartForm
 
         Select Case btn.Name
             Case "StartButton"
+                gameManager.startFlag = True
                 gameManager.gameSnds.Stop("loby")
                 gameManager.gameSnds.Play("start")
                 Dim formPlay As New MainForm
@@ -125,8 +133,12 @@ Public Class StartForm
 
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
         Me.Invoke(New DelegateInstance3(AddressOf DelDrawGif), fd, frameNum, frameCount)
+        If gameManager.startFlag = False Then
+
+            Me.Invoke(New DelegatePlayMusic(AddressOf DelPlayMusic))
+        End If
         frameNum += 1
-        For i = 0 To 15
+        For i = 0 To 25
             startBall(i).angle += 0.05
             startBall(i).coord.X = Math.Cos(startBall(i).angle) * startBall(i).distance + 200 + midCircleSize.Width / 2 - enemySBallSize.Width / 2
             startBall(i).coord.Y = Math.Sin(startBall(i).angle) * startBall(i).distance + 54 + midCircleSize.Height / 2 - enemySBallSize.Height / 2

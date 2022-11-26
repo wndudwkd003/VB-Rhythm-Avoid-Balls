@@ -11,6 +11,7 @@ Public Class LearnForm
     "키보드 왼쪽과 오른쪽을 누르면 화면이 회전합니다 ▽",
     "밖에서 날아오는 검은 공을 피하시고 ▽",
     "노란 공을 획득하여 점수를 얻으면서 최대한 살아남으세요! ▽",
+    "노란 공은 랜덤한 점수를 얻습니다.  ▽",
     "검은공에 닿으면 목숨이 하나 깎이면서 5초간의 무적 시간이 있습니다 ▽",
     "목숨을 전부 잃으면 게임 오버됩니다 ▽",
     "오랫동안 살아남아 기록을 남겨보세요! ▽",
@@ -77,4 +78,7 @@ Public Class LearnForm
         End If
     End Sub
 
+    Private Sub LearnForm_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
+        gameManager.gameSnds.Stop("loby")
+    End Sub
 End Class

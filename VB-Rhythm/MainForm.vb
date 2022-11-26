@@ -38,6 +38,8 @@ Public Class MainForm
     Public frameCount As Integer
     Public frameNum As Integer
 
+
+
     Private Sub DelDrawGif(fd As FrameDimension, fn As Integer, fc As Integer)
         gif.SelectActiveFrame(fd, fn Mod fc)
     End Sub
@@ -45,6 +47,7 @@ Public Class MainForm
     Private Sub DelPlaySounds(str As String)
         gameManager = GameManager.getInstance
         gameManager.gameSnds.Play(str)
+
         'gameSndIns.Play(str)
     End Sub
 
@@ -158,6 +161,8 @@ Public Class MainForm
 
             Me.Invoke(New DelegateInstance3(AddressOf DelDrawGif), fd, frameNum, frameCount)
             frameNum += 1
+
+
 
 
             ''''''''''''''''''''''''''''
@@ -275,7 +280,7 @@ Public Class MainForm
                         gameManager.scoreState = True
                         scoreBalls(u).scoreBall.coord.X = -10
                         scoreBalls(u).scoreBall.coord.Y = -10
-                        gameManager.playScore += 1
+                        gameManager.playScore += CInt(Rnd(1) * 3 + 1)
                         Me.Invoke(New DelegateInstance(AddressOf DelPlaySounds), "score")
                         scoreBalls(u).flag = False
                     End If
@@ -328,8 +333,9 @@ Public Class MainForm
 
     Private Sub MainForm_Paint(sender As Object, e As PaintEventArgs) Handles MyBase.Paint
         e.Graphics.DrawImage(gif, 168, 300)
-        e.Graphics.FillEllipse(bgBrush_01, midCircleCoord.X, midCircleCoord.Y, midCircleSize.Width, midCircleSize.Height)
         e.Graphics.DrawEllipse(bgPen_01, midCircleCoord.X, midCircleCoord.Y, midCircleSize.Width, midCircleSize.Height)
+
+
         If dieFlag = False Then
             e.Graphics.DrawEllipse(bgPen_01, userBall.coord.X, userBall.coord.Y, userFirstSize.Width, userFirstSize.Height)
         Else
@@ -370,8 +376,8 @@ Public Class MainForm
 
     Private Sub MainForm_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
         gameManager.gameSnds.Stop("start")
-
         gameManager.gameSnds.Play("loby")
+        gameManager.startFlag = False
     End Sub
 
 End Class

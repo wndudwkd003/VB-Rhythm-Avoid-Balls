@@ -23,7 +23,7 @@
 
     Public rankList As New ArrayList
 
-
+    Public startFlag As Boolean = False
 
 
     Private Sub New()
