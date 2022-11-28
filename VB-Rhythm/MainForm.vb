@@ -156,14 +156,8 @@ Public Class MainForm
     Private Sub MainLoopFunction(sender As Object, e As ElapsedEventArgs)
         If mainGameStart = True Then
 
-
-
-
             Me.Invoke(New DelegateInstance3(AddressOf DelDrawGif), fd, frameNum, frameCount)
             frameNum += 1
-
-
-
 
             ''''''''''''''''''''''''''''
 
@@ -177,23 +171,12 @@ Public Class MainForm
             userBall.coord.X = Math.Cos(userBall.angle) * userBall.distance + bgSize.Width / 2 - userFirstSize.Width / 2
             userBall.coord.Y = Math.Sin(userBall.angle) * userBall.distance + bgSize.Height / 2 - userFirstSize.Height / 2
 
-            For i = 0 To maxScoreCnt
-                If scoreBalls(i).flag = True Then
-                    scoreBalls(i).scoreBall.coord.X = Math.Cos(scoreBalls(i).scoreBall.angle) * scoreBalls(i).scoreBall.distance + bgSize.Width / 2 - enemySBallSize.Width / 2
-                    scoreBalls(i).scoreBall.coord.Y = Math.Sin(scoreBalls(i).scoreBall.angle) * scoreBalls(i).scoreBall.distance + bgSize.Height / 2 - enemySBallSize.Height / 2
-                End If
-            Next
-
-
             timerNow = DateTime.Now.Ticks
-
 
             If timerNow >= scoreTimerRecent + 50000000 Then
                 scoreTimerRecent = timerNow
                 For i = 0 To maxScoreCnt
                     If scoreBalls(i).flag = False Then
-                        scoreBalls(i).scoreBall.coord.X = Math.Cos(scoreBalls(i).scoreBall.angle) * scoreBalls(i).scoreBall.distance + bgSize.Width / 2 - enemySBallSize.Width / 2
-                        scoreBalls(i).scoreBall.coord.Y = Math.Sin(scoreBalls(i).scoreBall.angle) * scoreBalls(i).scoreBall.distance + bgSize.Height / 2 - enemySBallSize.Height / 2
                         scoreBalls(i).flag = True
                         Exit For
                     End If
@@ -208,11 +191,6 @@ Public Class MainForm
             If timerNow >= recodTimerRecent + 1000000 Then
                 recodTimerRecent = timerNow
                 gameManager.playTime += 100
-            End If
-
-            If timerNow >= scoreGetTimerRecent + 100000 Then
-                scoreGetTimerRecent = timerNow
-                gameManager.scoreState = False
             End If
 
             If gameManager.userDieState = 1 And timerNow >= powerTimerRecent + 10000000 Then
@@ -276,16 +254,13 @@ Public Class MainForm
                 If Math.Pow(userFirstSize.Width / 2, 2) >=
                 (Math.Pow(userBall.coord.X + userFirstSize.Width / 2 - scoreBalls(u).scoreBall.coord.X - enemySBallSize.Width / 2, 2) +
                 Math.Pow(userBall.coord.Y + userFirstSize.Height / 2 - scoreBalls(u).scoreBall.coord.Y - enemySBallSize.Height / 2, 2)) Then
-                    If Not gameManager.scoreState = True Then
-                        gameManager.scoreState = True
-                        Randomize()
-                        scoreBalls(u).scoreBall.angle = Rnd(1) * 360
-                        scoreBalls(u).scoreBall.coord.X = -10
-                        scoreBalls(u).scoreBall.coord.Y = -10
-                        gameManager.playScore += CInt(Rnd(1) * 3 + 1)
-                        Me.Invoke(New DelegateInstance(AddressOf DelPlaySounds), "score")
-                        scoreBalls(u).flag = False
-                    End If
+                    Randomize()
+                    scoreBalls(u).flag = False
+                    scoreBalls(u).scoreBall.angle = Rnd(1) * 360
+                    scoreBalls(u).scoreBall.coord.X = -10
+                    scoreBalls(u).scoreBall.coord.Y = -10
+                    gameManager.playScore += CInt(Rnd(1) * 3 + 1)
+                    Me.Invoke(New DelegateInstance(AddressOf DelPlaySounds), "score")
                 End If
             Next
 
@@ -327,7 +302,6 @@ Public Class MainForm
             End If
 
             ''''''''''''''''''''''''''''
-
 
             Invalidate()
         End If
