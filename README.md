@@ -21,5 +21,5 @@
         
 
 #### 🖼️ 미디어
-
+<img src="https://github.com/wndudwkd003/VB-Rhythm-Avoid-Balls/blob/master/%EB%8B%A4%EC%9A%B4%EB%A1%9C%EB%93%9C.jpg"></img>   
 
